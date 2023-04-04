@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BaseInfoTooltip from '@/components/BaseInfoTooltip.vue'
 
-const props = defineProps({
+defineProps({
   type: {
     type: String,
     default: 'text',
