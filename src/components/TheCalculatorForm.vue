@@ -9,13 +9,11 @@ const adminFee = ref<number>(0)
 const totalPaymentYearly = computed<number>(() => {
   const interest = interestRate.value / 100
   const fee = adminFee.value / 100
-  const total = (interest + fee) * mortgageAmount.value
-  return parseFloat(total.toFixed(2))
+  return (interest + fee) * mortgageAmount.value
 })
 
 const totalPaymentMonthly = computed<number>(() => {
-  const total = totalPaymentYearly.value / 12
-  return parseFloat(total.toFixed(2))
+  return totalPaymentYearly.value / 12
 })
 </script>
 
@@ -34,11 +32,27 @@ const totalPaymentMonthly = computed<number>(() => {
       <BaseInput v-model="interestRate" type="number" step="0.01" label="Rentesats" unit="%" />
       <div class="mt-6 border-t border-gray-700 pt-6 flex items-center justify-between">
         <p class="text-gray-300 font-semibold text-xl">Årlig udgift:</p>
-        <p class="text-gray-400 text-2xl">{{ totalPaymentYearly.toLocaleString('da-DK') }} kr</p>
+        <p class="text-gray-400 text-2xl">
+          {{
+            totalPaymentYearly.toLocaleString('da-DK', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          }}
+          kr
+        </p>
       </div>
       <div class="pt-1 flex items-center justify-between">
         <p class="text-gray-300 font-semibold text-xl">Månedlig udgift:</p>
-        <p class="text-gray-400 text-2xl">{{ totalPaymentMonthly.toLocaleString('da-DK') }} kr</p>
+        <p class="text-gray-400 text-2xl">
+          {{
+            totalPaymentMonthly.toLocaleString('da-DK', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          }}
+          kr
+        </p>
       </div>
     </div>
   </div>
