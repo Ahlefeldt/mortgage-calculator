@@ -12,9 +12,7 @@ const totalPaymentYearly = computed<number>(() => {
   return (interest + fee) * mortgageAmount.value
 })
 
-const totalPaymentMonthly = computed<number>(() => {
-  return totalPaymentYearly.value / 12
-})
+const totalPaymentMonthly = computed<number>(() => totalPaymentYearly.value / 12)
 </script>
 
 <template>
