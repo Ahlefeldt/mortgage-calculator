@@ -25,7 +25,7 @@ const totalPaymentMonthly = computed<number>(() => {
       <BaseInput v-model="mortgageAmount" type="number" step="1" label="Restgæld" unit="kr" />
       <BaseInput
         v-model="adminFee"
-        info="Bidraget er det beløb, du hver termin betaler dit realkreditinstitut for at administrere dit realkreditlån."
+        info="Bidragssats er den pris, du betaler til realkreditinstituttet for at administrere og tage risikoen for et realkreditlån."
         type="number"
         step="0.01"
         label="Bidragssats"
