@@ -3,7 +3,7 @@ import BaseCard from '@/components/TheCalculatorForm.vue'
 </script>
 
 <template>
-  <div class="flex justify-center bg-gray-900 h-screen w-screen p-12">
+  <div class="flex justify-center h-screen w-screen p-12">
     <div class="w-full max-w-2xl">
       <h1 class="text-4xl font-bold text-gray-100 mb-8">Realkredit Udgiftsberegner</h1>
       <BaseCard />
