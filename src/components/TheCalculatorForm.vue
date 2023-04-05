@@ -32,7 +32,7 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
 </script>
 
 <template>
-  <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+  <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-testid="calculator-form">
     <div class="p-6">
       <BaseRadio v-model="rateType" :items="rateTypes" />
       <BaseInput v-model="mortgageAmount" type="number" step="1" label="Restgæld" unit="kr" />

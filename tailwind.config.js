@@ -4,7 +4,7 @@ export default {
   media: false,
   theme: {
     fontFamily: {
-      mono: ['Roboto Mono', 'ui-monospace'],
+      sans: ['Roboto', 'ui-sans-serif', 'system-ui'],
     },
     extend: {},
   },
