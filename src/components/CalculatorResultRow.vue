@@ -14,8 +14,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <p class="text-gray-300 font-semibold text-sm">{{ label }}:</p>
+  <div class="flex flex-col sm:flex-row justify-between">
+    <p class="text-gray-300 font-semibold text-sm mb-1 sm:mb-0">{{ label }}:</p>
     <p class="text-gray-400">{{ localCurrencyFormat(result) }} kr</p>
   </div>
 </template>

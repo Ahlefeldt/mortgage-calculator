@@ -28,7 +28,7 @@ watch(selectedValue, newValue => {
     <li v-for="(item, index) in items" :key="index" class="py-4 first:pt-0 flex justify-between items-start">
       <label @click="selectedValue = item.value" class="group cursor-pointer block text-gray-400 text-sm font-medium leading-6 w-full">
         <div class="flex relative justify-between items-center">
-          <div>
+          <div class="mr-6">
             {{ item.label }}
             <p class="text-gray-500 text-sm">{{ item.description }}</p>
           </div>
