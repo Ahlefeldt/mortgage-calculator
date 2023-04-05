@@ -49,7 +49,7 @@ const difference = computed<number>(() => futurePaymentMonthly.value - paymentMo
       <CalculatorResultRow class="mt-1" label="Månedlig udgift" :result="paymentMonthly" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Fremtidig Årlig udgift" :result="futurePaymentYearly" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Fremtidig Månedlig udgift" :result="futurePaymentMonthly" />
-      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-4" label="Difference" :result="difference" />
+      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-4" label="Difference" :result="difference" :colorize="true" />
     </div>
   </div>
 </template>
