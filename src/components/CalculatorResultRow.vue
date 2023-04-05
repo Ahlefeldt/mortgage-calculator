@@ -23,8 +23,8 @@ const resultIsZero = computed(() => props.result === 0)
 
 <template>
   <div class="flex flex-col sm:flex-row justify-between">
-    <p class="text-gray-300 font-semibold text-sm mb-1 sm:mb-0">{{ label }}:</p>
-    <p :class="{ 'text-gray-400': !colorize || resultIsZero, 'text-red-400': colorize && !resultIsNegative && !resultIsZero, 'text-green-400': colorize && resultIsNegative }">
+    <p class="text-gray-400 font-medium text-sm mb-1 sm:mb-0">{{ label }}</p>
+    <p :class="{ 'text-gray-300': !colorize || resultIsZero, 'text-red-400': colorize && !resultIsNegative && !resultIsZero, 'text-green-400': colorize && resultIsNegative }">
       {{ localCurrencyFormat(result) }} kr
     </p>
   </div>

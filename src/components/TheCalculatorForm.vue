@@ -46,10 +46,10 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
       />
       <BaseInput v-model="interestRate" type="number" step="0.01" label="Rentesats" unit="%" />
       <BaseInput v-if="rateType === 'variable'" v-model="futureInterestRate" type="number" step="0.01" label="Fremtidig Rentesats" unit="%" />
-      <CalculatorResultRow class="mt-6 pt-6 border-t border-gray-700" label="Årlig udgift" :result="paymentYearly" />
+      <CalculatorResultRow class="mt-8 pt-8 border-t border-gray-700" label="Årlig udgift" :result="paymentYearly" />
       <CalculatorResultRow class="mt-1" label="Månedlig udgift" :result="paymentMonthly" />
-      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Fremtidig Årlig udgift" :result="futurePaymentYearly" />
-      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Fremtidig Månedlig udgift" :result="futurePaymentMonthly" />
+      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Fremtidig årlig udgift" :result="futurePaymentYearly" />
+      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Fremtidig månedlig udgift" :result="futurePaymentMonthly" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Årlig difference" :result="yearlyDifference" :colorize="true" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Månedlig difference" :result="monthlyDifference" :colorize="true" />
     </div>
