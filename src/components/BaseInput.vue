@@ -61,7 +61,7 @@ const onInput = (event: Event) => {
         :value="modelValue"
         @input="onInput($event)"
       />
-      <span v-if="unit" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 font-semibold">
+      <span v-if="unit" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
         {{ unit }}
       </span>
     </div>

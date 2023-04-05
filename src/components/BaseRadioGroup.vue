@@ -29,8 +29,8 @@ watch(selectedValue, newValue => {
       <div @click="selectedValue = item.value" class="group cursor-pointer block w-full">
         <div class="flex relative justify-between items-center">
           <div class="mr-6">
-            <label :for="`${item.value}-${index}`" class="text-gray-400 text-sm font-medium leading-6">{{ item.label }}</label>
-            <p class="text-gray-500 text-sm">{{ item.description }}</p>
+            <label :for="`${item.value}-${index}`" class="text-gray-200 text-sm leading-6">{{ item.label }}</label>
+            <p class="text-gray-400 text-sm">{{ item.description }}</p>
           </div>
           <div>
             <input type="radio" :id="`${item.value}-${index}`" :value="item.value" v-model="selectedValue" class="sr-only" />
@@ -44,8 +44,8 @@ watch(selectedValue, newValue => {
 </template>
 
 <style scoped>
-.group:hover .text-gray-400 {
-  @apply text-gray-200;
+.group:hover .text-gray-200 {
+  @apply text-gray-100;
 }
 
 .group:hover .border-white {
