@@ -27,7 +27,8 @@ const paymentYearly = computed<number>(() => calculateMortgagePayment(interestRa
 const paymentMonthly = computed<number>(() => paymentYearly.value / 12)
 const futurePaymentYearly = computed<number>(() => calculateMortgagePayment(futureInterestRate.value, adminFee.value, mortgageAmount.value))
 const futurePaymentMonthly = computed<number>(() => futurePaymentYearly.value / 12)
-const difference = computed<number>(() => futurePaymentMonthly.value - paymentMonthly.value)
+const yearlyDifference = computed<number>(() => futurePaymentYearly.value - paymentYearly.value)
+const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - paymentMonthly.value)
 </script>
 
 <template>
@@ -49,7 +50,8 @@ const difference = computed<number>(() => futurePaymentMonthly.value - paymentMo
       <CalculatorResultRow class="mt-1" label="Månedlig udgift" :result="paymentMonthly" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Fremtidig Årlig udgift" :result="futurePaymentYearly" />
       <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Fremtidig Månedlig udgift" :result="futurePaymentMonthly" />
-      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-4" label="Difference" :result="difference" :colorize="true" />
+      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-6" label="Årlig difference" :result="yearlyDifference" :colorize="true" />
+      <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Månedlig difference" :result="monthlyDifference" :colorize="true" />
     </div>
   </div>
 </template>

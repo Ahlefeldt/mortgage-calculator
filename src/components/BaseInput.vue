@@ -28,7 +28,7 @@ defineProps({
   },
   modelValue: {
     type: [String, Number],
-    default: '',
+    default: null,
   },
   info: {
     type: String,
