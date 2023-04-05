@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, fireEvent } from '@testing-library/vue'
+import { render } from '@testing-library/vue'
 import { expect } from 'vitest'
 
 import TheCalculatorForm from '@/components/TheCalculatorForm.vue'
