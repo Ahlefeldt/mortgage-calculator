@@ -32,7 +32,7 @@ const monthsOptions = Array.from({ length: 12 }, (_, i) => ({
     <p class="mt-1 text-sm text-gray-400">Vælg restløbetiden for at vi kan udregne dit afdrag</p>
     <div class="flex items-center space-x-4 mt-4">
       <BaseSelect :options="yearsOptions" v-model="localYears" label="År" />
-      <BaseSelect :options="monthsOptions" v-model="localMonths" label="Måned" />
+      <BaseSelect :options="monthsOptions" v-model="localMonths" label="Måneder" />
     </div>
   </div>
 </template>

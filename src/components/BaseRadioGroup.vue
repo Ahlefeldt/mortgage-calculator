@@ -24,8 +24,8 @@ watch(selectedValue, newValue => {
 </script>
 
 <template>
-  <ul class="divide-y divide-gray-700 mb-4">
-    <li v-for="(item, index) in items" :key="index" class="py-4 first:pt-0 flex justify-between items-start">
+  <ul>
+    <li v-for="(item, index) in items" :key="index" class="py-2 first:pt-0 last:pb-0 flex justify-between items-start">
       <div @click="selectedValue = item.value" class="group cursor-pointer block w-full">
         <div class="flex relative justify-between items-center">
           <div class="mr-6">
@@ -35,7 +35,7 @@ watch(selectedValue, newValue => {
           <div>
             <input type="radio" :id="`${item.value}-${index}`" :value="item.value" v-model="selectedValue" class="sr-only" />
             <span class="w-4 h-4 bg-white border-2 border-white rounded-full absolute top-1/2 right-0 -translate-y-1/2"></span>
-            <span v-if="selectedValue === item.value" class="w-2 h-2 bg-purple-600 rounded-full absolute right-1 top-1/2 -translate-y-1/2"></span>
+            <span v-if="selectedValue === item.value" class="w-2 h-2 bg-indigo-500 rounded-full absolute right-1 top-1/2 -translate-y-1/2"></span>
           </div>
         </div>
       </div>
@@ -49,6 +49,6 @@ watch(selectedValue, newValue => {
 }
 
 .group:hover .border-white {
-  @apply border-purple-500;
+  @apply border-indigo-700;
 }
 </style>

@@ -24,7 +24,10 @@ const toggle = () => (modelValue.value = !modelValue.value)
       <p class="text-gray-400 text-sm">{{ description }}</p>
     </div>
     <div>
-      <button @click="toggle" class="relative inline-flex items-center h-6 rounded-full w-11 bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <button
+        @click="toggle"
+        :class="[modelValue ? 'bg-indigo-500' : 'bg-gray-300 dark:bg-gray-600', 'relative inline-flex items-center h-6 rounded-full w-11 focus:outline-none focus:ring-2 focus:ring-indigo-700']"
+      >
         <span :class="[modelValue ? 'translate-x-6' : 'translate-x-1', 'inline-block w-4 h-4 transform bg-white rounded-full transition ease-in-out duration-200']"></span>
       </button>
     </div>

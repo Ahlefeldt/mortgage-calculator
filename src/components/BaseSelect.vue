@@ -39,7 +39,7 @@ onClickOutside(selectRef, () => (isOpen.value = false))
         </span>
       </button>
       <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-gray-700 z-10">
-        <ul class="py-1 leading-6 text-white text-sm">
+        <ul class="py-1 leading-6 text-white text-sm max-h-[200px] overflow-auto">
           <li v-for="option in options" :key="option.value" class="cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-500 hover:text-white" @click="onSelect(option.value)">
             <span class="font-normal block truncate">{{ option.label }}</span>
             <span v-if="selectedValue === option.value" class="text-indigo-300 absolute inset-y-0 right-0 flex items-center pr-4">
