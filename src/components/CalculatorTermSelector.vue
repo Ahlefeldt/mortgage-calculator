@@ -27,9 +27,9 @@ const monthsOptions = Array.from({ length: 12 }, (_, i) => ({
 </script>
 
 <template>
-  <div class="mb-12">
-    <h3 class="text-lg font-medium text-gray-900 dark:text-white">Løbetid</h3>
-    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Vælg restløbetiden for at vi kan udregne dit afdrag</p>
+  <div class="mb-8">
+    <h3 class="font-medium text-white">Løbetid</h3>
+    <p class="mt-1 text-sm text-gray-400">Vælg restløbetiden for at vi kan udregne dit afdrag</p>
     <div class="flex items-center space-x-4 mt-4">
       <BaseSelect :options="yearsOptions" v-model="localYears" label="År" />
       <BaseSelect :options="monthsOptions" v-model="localMonths" label="Måned" />
