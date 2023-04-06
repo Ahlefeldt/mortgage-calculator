@@ -1,6 +1,7 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/20/solid'
 import { defineProps, ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
   options: { value: string; label: string }[]
@@ -15,18 +16,18 @@ const emit = defineEmits(['update:modelValue'])
 
 const onSelect = (value: string) => {
   selectedValue.value = value
-  onChange()
+  emit('update:modelValue', selectedValue.value)
   isOpen.value = false
 }
 
-const onChange = () => {
-  emit('update:modelValue', selectedValue.value)
-}
+const selectRef = ref(null)
+onClickOutside(selectRef, () => (isOpen.value = false))
 </script>
+
 <template>
   <div class="flex flex-col w-full">
     <label id="listbox-label" class="text-gray-400 text-sm font-medium leading-6">{{ label }}</label>
-    <div class="relative mt-2">
+    <div class="relative mt-2" ref="selectRef">
       <button
         type="button"
         class="relative w-full cursor-default rounded-md bg-gray-700 py-2 pl-3 pr-10 text-left text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm"
@@ -38,7 +39,7 @@ const onChange = () => {
         </span>
       </button>
       <div v-if="isOpen" class="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-gray-700 z-10">
-        <ul class="py-1 leading-6 text-white text-sm max-h-[200px] overflow-auto">
+        <ul class="py-1 leading-6 text-white text-sm">
           <li v-for="option in options" :key="option.value" class="cursor-default select-none relative py-2 pl-3 pr-9 hover:bg-indigo-500 hover:text-white" @click="onSelect(option.value)">
             <span class="font-normal block truncate">{{ option.label }}</span>
             <span v-if="selectedValue === option.value" class="text-indigo-300 absolute inset-y-0 right-0 flex items-center pr-4">

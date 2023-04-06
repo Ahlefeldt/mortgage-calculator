@@ -56,12 +56,12 @@ const onInput = (event: Event) => {
         :name="name"
         :step="step"
         :id="name"
-        class="bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
+        class="bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
         :placeholder="placeholder"
         :value="modelValue"
         @input="onInput($event)"
       />
-      <span v-if="unit" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+      <span v-if="unit" class="absolute text-sm inset-y-0 right-0 flex items-center px-4 text-gray-400">
         {{ unit }}
       </span>
     </div>
