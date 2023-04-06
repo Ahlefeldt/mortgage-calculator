@@ -36,7 +36,7 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'comma-style': 'error',
     'no-new-wrappers': 'error',
-    'id-length': [2, { exceptions: ['i', 'a', 'b'] }],
+    'id-length': [2, { exceptions: ['i', 'a', 'b', '_'] }],
     'no-new-object': 'error',
     'no-multiple-empty-lines': 'error',
     'no-multi-assign': 'error',

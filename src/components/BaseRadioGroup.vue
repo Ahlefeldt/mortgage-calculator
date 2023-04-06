@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 // eslint-disable-next-line no-duplicate-imports
 import type { PropType } from 'vue'
-import type { RadioItems } from '@/interface/radio.interface.js'
+import type { RadioItems } from '@/interface/radio.interface'
 
 const emit = defineEmits(['update:modelValue'])
 

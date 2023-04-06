@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { RadioItems } from '@/interface/radio.interface.js'
+import type { RadioItems } from '@/interface/radio.interface'
 
 // Components
 import BaseInput from '@/components/BaseInput.vue'
 import BaseRadioGroup from '@/components/BaseRadioGroup.vue'
 import CalculatorResultRow from '@/components/CalculatorResultRow.vue'
+import CalculatorTermSelector from '@/components/CalculatorTermSelector.vue'
 
+const years = ref<string>('0')
+const months = ref<string>('0')
 const rateType = ref<string>('variable')
 const rateTypes = ref<RadioItems[]>([
   { value: 'variable', label: 'Variabel rente', description: 'Du betaler en variabel rente, der kan ændre sig over tid' },
@@ -34,6 +37,7 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
 <template>
   <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-testid="calculator-form">
     <div class="p-6">
+      <CalculatorTermSelector v-model:years="years" v-model:months="months" />
       <BaseRadioGroup v-model="rateType" :items="rateTypes" />
       <BaseInput v-model="mortgageAmount" type="number" step="1" label="Restgæld" unit="kr" />
       <BaseInput
