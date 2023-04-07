@@ -55,7 +55,7 @@ const inputLabel = computed(() => {
 </script>
 
 <template>
-  <div class="mb-4">
+  <div>
     <div class="flex items-center mb-1">
       <label :for="name" class="text-gray-400 text-sm font-medium leading-6">{{ inputLabel }}</label>
       <BaseInfoTooltip v-if="info" class="ml-1" :info="info" />
