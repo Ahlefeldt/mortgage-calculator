@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import BaseInfoTooltip from '@/components/BaseInfoTooltip.vue'
 
-defineProps({
+const props = defineProps({
   type: {
     type: String,
     default: 'text',
@@ -34,6 +35,10 @@ defineProps({
     type: String,
     default: '',
   },
+  optional: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -42,12 +47,17 @@ const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement
   emit('update:modelValue', target.value)
 }
+
+const inputLabel = computed(() => {
+  if (props.optional) return `${props.label} (valgfri)`
+  return props.label
+})
 </script>
 
 <template>
   <div class="mb-4">
     <div class="flex items-center mb-1">
-      <label :for="name" class="text-gray-400 text-sm font-medium leading-6">{{ label }}</label>
+      <label :for="name" class="text-gray-400 text-sm font-medium leading-6">{{ inputLabel }}</label>
       <BaseInfoTooltip v-if="info" class="ml-1" :info="info" />
     </div>
     <div class="relative">
@@ -56,12 +66,12 @@ const onInput = (event: Event) => {
         :name="name"
         :step="step"
         :id="name"
-        class="bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
+        class="bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
         :placeholder="placeholder"
         :value="modelValue"
         @input="onInput($event)"
       />
-      <span v-if="unit" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+      <span v-if="unit" class="absolute text-sm inset-y-0 right-0 flex items-center px-4 text-gray-400">
         {{ unit }}
       </span>
     </div>
