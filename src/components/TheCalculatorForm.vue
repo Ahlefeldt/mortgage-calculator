@@ -19,7 +19,7 @@ const rateTypes = ref<RadioItems[]>([
 ])
 const mortgageAmount = ref<number>(0)
 const interestRate = ref<number>(0)
-const futureInterestRate = ref<number>(0)
+const futureInterestRate = ref<number | string>('')
 const adminFee = ref<number>(0)
 
 const calculateMortgagePayment = (interestRate: number) => {
@@ -35,7 +35,10 @@ const calculateMortgagePayment = (interestRate: number) => {
 }
 
 const paymentMonthly = computed<number>(() => calculateMortgagePayment(interestRate.value))
-const futurePaymentMonthly = computed<number>(() => calculateMortgagePayment(futureInterestRate.value))
+const futurePaymentMonthly = computed<number>(() => {
+  if (futureInterestRate.value === '') return 0
+  return calculateMortgagePayment(Number(futureInterestRate.value))
+})
 const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - paymentMonthly.value)
 </script>
 
@@ -54,9 +57,9 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
       unit="%"
     />
     <BaseInput v-model="interestRate" type="number" step="0.01" label="Rentesats" unit="%" />
-    <BaseInput v-if="rateType === 'variable'" v-model="futureInterestRate" type="number" step="0.01" label="Fremtidig Rentesats" unit="%" />
+    <BaseInput v-if="rateType === 'variable'" v-model="futureInterestRate" type="number" step="0.01" label="Fremtidig Rentesats" unit="%" optional />
     <CalculatorResultRow class="mt-6 pt-6 border-t border-gray-700" label="Månedlig udgift" :result="paymentMonthly" />
-    <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Fremtidig månedlig udgift" :result="futurePaymentMonthly" />
-    <CalculatorResultRow v-if="rateType === 'variable'" class="mt-1" label="Månedlig difference" :result="monthlyDifference" :colorize="true" />
+    <CalculatorResultRow v-if="rateType === 'variable' && futureInterestRate" class="mt-1" label="Fremtidig månedlig udgift" :result="futurePaymentMonthly" />
+    <CalculatorResultRow v-if="rateType === 'variable' && futureInterestRate" class="mt-1" label="Månedlig difference" :result="monthlyDifference" :colorize="true" />
   </div>
 </template>
