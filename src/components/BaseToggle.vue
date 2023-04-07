@@ -20,7 +20,7 @@ const toggle = () => (modelValue.value = !modelValue.value)
 <template>
   <div class="flex items-center justify-between">
     <div class="mr-6">
-      <label :for="`mortgage-grace-period`" class="text-gray-300 text-sm leading-6"> {{ label }} </label>
+      <label class="text-gray-200 text-sm leading-6"> {{ label }} </label>
       <p class="text-gray-400 text-sm">{{ description }}</p>
     </div>
     <div>

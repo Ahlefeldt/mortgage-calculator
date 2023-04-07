@@ -4,17 +4,17 @@ import { defineProps, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
-  options: { value: string; label: string }[]
+  options: { value: number; label: string }[]
   label: string
-  modelValue: string
+  modelValue: string | number
 }>()
 
-const selectedValue = ref<string>(props.modelValue)
+const selectedValue = ref<string | number>(props.modelValue)
 const isOpen = ref(false)
 
 const emit = defineEmits(['update:modelValue'])
 
-const onSelect = (value: string) => {
+const onSelect = (value: string | number) => {
   selectedValue.value = value
   emit('update:modelValue', selectedValue.value)
   isOpen.value = false
@@ -26,8 +26,8 @@ onClickOutside(selectRef, () => (isOpen.value = false))
 
 <template>
   <div class="flex flex-col w-full">
-    <label id="listbox-label" class="text-gray-400 text-sm font-medium leading-6">{{ label }}</label>
-    <div class="relative mt-2" ref="selectRef">
+    <label id="listbox-label" class="text-gray-400 text-sm font-medium leading-6 mb-1">{{ label }}</label>
+    <div class="relative" ref="selectRef">
       <button
         type="button"
         class="relative w-full cursor-default rounded-md bg-gray-700 py-2 pl-3 pr-10 text-left text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm"

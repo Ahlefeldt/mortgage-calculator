@@ -10,8 +10,8 @@ import CalculatorResultRow from '@/components/CalculatorResultRow.vue'
 import CalculatorTermSelector from '@/components/CalculatorTermSelector.vue'
 
 const gracePeriod = ref(true)
-const yearsRemaining = ref<string>('30')
-const monthsRemaining = ref<string>('0')
+const yearsRemaining = ref<number>(30)
+const monthsRemaining = ref<number>(0)
 const rateType = ref<string>('fixed')
 const rateTypes = ref<RadioItems[]>([
   { value: 'variable', label: 'Variabel rente', description: 'Du betaler en variabel rente, der kan ændre sig over tid' },
@@ -25,14 +25,17 @@ const adminFee = ref<number>(0)
 const calculateMortgagePayment = (interestRate: number) => {
   const interest = interestRate / 100
   const fee = adminFee.value / 100
-  return (interest + fee) * mortgageAmount.value
+  const mortgagePaymentWithoutInstalments = ((interest + fee) * mortgageAmount.value) / 12
+  if (gracePeriod.value) return mortgagePaymentWithoutInstalments
+
+  const totalMonthsRemaining = monthsRemaining.value + yearsRemaining.value * 12
+  const instalmentCost = mortgageAmount.value / totalMonthsRemaining
+  const mortgagePaymentWithInstalments = mortgagePaymentWithoutInstalments + instalmentCost
+  return mortgagePaymentWithInstalments
 }
 
-const paymentYearly = computed<number>(() => calculateMortgagePayment(interestRate.value))
-const paymentMonthly = computed<number>(() => paymentYearly.value / 12)
-const futurePaymentYearly = computed<number>(() => calculateMortgagePayment(futureInterestRate.value))
-const futurePaymentMonthly = computed<number>(() => futurePaymentYearly.value / 12)
-const yearlyDifference = computed<number>(() => futurePaymentYearly.value - paymentYearly.value)
+const paymentMonthly = computed<number>(() => calculateMortgagePayment(interestRate.value))
+const futurePaymentMonthly = computed<number>(() => calculateMortgagePayment(futureInterestRate.value))
 const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - paymentMonthly.value)
 </script>
 
