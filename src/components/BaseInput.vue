@@ -73,16 +73,16 @@ const inputType = computed(() => (formatThousands ? 'text' : type))
   <div>
     <div class="flex items-center mb-1">
       <label :for="name" class="text-gray-400 text-sm font-medium leading-6">{{ inputLabel }}</label>
-      <BaseInfoTooltip v-if="info" class="ml-1" :info="info" />
+      <BaseInfoTooltip v-if="info" class="ml-1" :info />
     </div>
     <div class="relative">
       <input
         :type="inputType"
-        :name="name"
-        :step="step"
+        :name
+        :step
         :id="name"
         class="bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
-        :placeholder="placeholder"
+        :placeholder
         :value="displayValue"
         :inputmode="formatThousands ? 'numeric' : undefined"
         @input="onInput($event)"
