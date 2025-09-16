@@ -39,12 +39,33 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  formatThousands: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
 
+const formatThousandsValue = (value: string) => {
+  const digitsOnly = value.replace(/\D/g, '')
+  const formatted = digitsOnly.replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return { digitsOnly, formatted }
+}
+
 const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement
+  if (props.formatThousands) {
+    const { digitsOnly, formatted } = formatThousandsValue(target.value)
+    if (!digitsOnly) {
+      emit('update:modelValue', '')
+      target.value = ''
+      return
+    }
+    emit('update:modelValue', Number(digitsOnly))
+    target.value = formatted
+    return
+  }
   emit('update:modelValue', target.value)
 }
 
@@ -52,6 +73,14 @@ const inputLabel = computed(() => {
   if (props.optional) return `${props.label} (valgfri)`
   return props.label
 })
+
+const displayValue = computed(() => {
+  if (!props.formatThousands || props.modelValue === null || props.modelValue === undefined) return props.modelValue ?? ''
+  const { formatted } = formatThousandsValue(String(props.modelValue))
+  return formatted
+})
+
+const inputType = computed(() => (props.formatThousands ? 'text' : props.type))
 </script>
 
 <template>
@@ -62,13 +91,14 @@ const inputLabel = computed(() => {
     </div>
     <div class="relative">
       <input
-        :type="type"
+        :type="inputType"
         :name="name"
         :step="step"
         :id="name"
         class="bg-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent border-gray-600 rounded-lg py-2 px-4 pr-10 block w-full text-gray-100 leading-tight"
         :placeholder="placeholder"
-        :value="modelValue"
+        :value="displayValue"
+        :inputmode="formatThousands ? 'numeric' : undefined"
         @input="onInput($event)"
       />
       <span v-if="unit" class="absolute text-sm inset-y-0 right-0 flex items-center px-4 text-gray-400">

@@ -49,7 +49,15 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
       <CalculatorTermSelector v-if="!gracePeriod" class="mt-6 pt-6 border-t border-gray-700" v-model:years="yearsRemaining" v-model:months="monthsRemaining" />
     </transition>
     <BaseRadioGroup class="mt-6 pt-6 border-t border-gray-700" v-model="rateType" :items="rateTypes" />
-    <BaseInput class="mt-6 mb-4 pt-6 border-t border-gray-700" v-model="mortgageAmount" type="number" step="1" label="Restgæld" unit="kr" />
+    <BaseInput
+      class="mt-6 mb-4 pt-6 border-t border-gray-700"
+      v-model="mortgageAmount"
+      type="number"
+      step="1"
+      label="Restgæld"
+      unit="kr"
+      format-thousands
+    />
     <BaseInput
       class="mb-4"
       v-model="adminFee"
