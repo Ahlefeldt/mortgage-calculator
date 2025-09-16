@@ -17,24 +17,25 @@ const rateTypes = ref<RadioItems[]>([
   { value: 'variable', label: 'Variabel rente', description: 'Du betaler en variabel rente, der kan ændre sig over tid' },
   { value: 'fixed', label: 'Fast rente', description: 'Du betaler den samme rente i hele låneperioden' },
 ])
-const mortgageAmount = ref<number>(0)
-const interestRate = ref<number>(0)
-const futureInterestRate = ref<number | string>('')
-const adminFee = ref<number>(0)
+const mortgageAmount = ref<number | ''>(0)
+const interestRate = ref<number | ''>(0)
+const futureInterestRate = ref<number | ''>('')
+const adminFee = ref<number | ''>(0)
 
 const calculateMortgagePayment = (interestRate: number) => {
   const interest = interestRate / 100
-  const fee = adminFee.value / 100
-  const mortgagePaymentWithoutInstalments = ((interest + fee) * mortgageAmount.value) / 12
+  const fee = Number(adminFee.value) / 100
+  const principal = Number(mortgageAmount.value)
+  const mortgagePaymentWithoutInstalments = ((interest + fee) * principal) / 12
   if (gracePeriod.value) return mortgagePaymentWithoutInstalments
 
   const totalMonthsRemaining = monthsRemaining.value + yearsRemaining.value * 12
-  const instalmentCost = mortgageAmount.value / totalMonthsRemaining
+  const instalmentCost = principal / totalMonthsRemaining
   const mortgagePaymentWithInstalments = mortgagePaymentWithoutInstalments + instalmentCost
   return mortgagePaymentWithInstalments
 }
 
-const paymentMonthly = computed<number>(() => calculateMortgagePayment(interestRate.value))
+const paymentMonthly = computed<number>(() => calculateMortgagePayment(Number(interestRate.value)))
 const futurePaymentMonthly = computed<number>(() => {
   if (futureInterestRate.value === '') return 0
   return calculateMortgagePayment(Number(futureInterestRate.value))
@@ -49,15 +50,7 @@ const monthlyDifference = computed<number>(() => futurePaymentMonthly.value - pa
       <CalculatorTermSelector v-if="!gracePeriod" class="mt-6 pt-6 border-t border-gray-700" v-model:years="yearsRemaining" v-model:months="monthsRemaining" />
     </transition>
     <BaseRadioGroup class="mt-6 pt-6 border-t border-gray-700" v-model="rateType" :items="rateTypes" />
-    <BaseInput
-      class="mt-6 mb-4 pt-6 border-t border-gray-700"
-      v-model="mortgageAmount"
-      type="number"
-      step="1"
-      label="Restgæld"
-      unit="kr"
-      format-thousands
-    />
+    <BaseInput class="mt-6 mb-4 pt-6 border-t border-gray-700" v-model="mortgageAmount" type="number" step="1" label="Restgæld" unit="kr" format-thousands />
     <BaseInput
       class="mb-4"
       v-model="adminFee"

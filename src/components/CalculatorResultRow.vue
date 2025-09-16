@@ -2,23 +2,18 @@
 import { computed } from 'vue'
 import { localCurrencyFormat } from '@/utils/format.utils'
 
-const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  result: {
-    type: Number,
-    required: true,
-  },
-  colorize: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  label,
+  result,
+  colorize = false,
+} = defineProps<{
+  label: string
+  result: number
+  colorize?: boolean
+}>()
 
-const resultIsNegative = computed(() => props.result < 0)
-const resultIsZero = computed(() => props.result === 0)
+const resultIsNegative = computed(() => result < 0)
+const resultIsZero = computed(() => result === 0)
 </script>
 
 <template>

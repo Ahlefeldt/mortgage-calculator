@@ -1,18 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
-const props = defineProps<{
-  modelValue: boolean
+const { label, description } = defineProps<{
   label: string
   description: string
 }>()
 
-const emit = defineEmits(['update:modelValue'])
-
-const modelValue = computed({
-  get: () => props.modelValue,
-  set: (value: boolean) => emit('update:modelValue', value),
-})
+const modelValue = defineModel<boolean>({ required: true })
 
 const toggle = () => (modelValue.value = !modelValue.value)
 </script>

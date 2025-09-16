@@ -2,50 +2,29 @@
 import { computed } from 'vue'
 import BaseInfoTooltip from '@/components/BaseInfoTooltip.vue'
 
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'text',
-  },
-  name: {
-    type: String,
-    default: () => Math.random().toString(36).substring(2, 8),
-  },
-  step: {
-    type: String,
-    default: '1',
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  unit: {
-    type: String,
-    default: '',
-  },
-  modelValue: {
-    type: [String, Number],
-    default: null,
-  },
-  info: {
-    type: String,
-    default: '',
-  },
-  optional: {
-    type: Boolean,
-    default: false,
-  },
-  formatThousands: {
-    type: Boolean,
-    default: false,
-  },
-})
+const {
+  type = 'text',
+  name = Math.random().toString(36).substring(2, 8),
+  step = '1',
+  label,
+  placeholder = '',
+  unit = '',
+  info = '',
+  optional = false,
+  formatThousands = false,
+} = defineProps<{
+  type?: string
+  name?: string
+  step?: string
+  label: string
+  placeholder?: string
+  unit?: string
+  info?: string
+  optional?: boolean
+  formatThousands?: boolean
+}>()
 
-const emit = defineEmits(['update:modelValue'])
+const modelValue = defineModel<string | number | null>({ default: null })
 
 const formatThousandsValue = (value: string) => {
   const digitsOnly = value.replace(/\D/g, '')
@@ -55,32 +34,39 @@ const formatThousandsValue = (value: string) => {
 
 const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement
-  if (props.formatThousands) {
+  if (formatThousands) {
     const { digitsOnly, formatted } = formatThousandsValue(target.value)
     if (!digitsOnly) {
-      emit('update:modelValue', '')
+      modelValue.value = ''
       target.value = ''
       return
     }
-    emit('update:modelValue', Number(digitsOnly))
+    modelValue.value = Number(digitsOnly)
     target.value = formatted
     return
   }
-  emit('update:modelValue', target.value)
+
+  if (type === 'number') {
+    modelValue.value = target.value === '' ? '' : Number(target.value)
+    return
+  }
+
+  modelValue.value = target.value
 }
 
 const inputLabel = computed(() => {
-  if (props.optional) return `${props.label} (valgfri)`
-  return props.label
+  if (optional) return `${label} (valgfri)`
+  return label
 })
 
 const displayValue = computed(() => {
-  if (!props.formatThousands || props.modelValue === null || props.modelValue === undefined) return props.modelValue ?? ''
-  const { formatted } = formatThousandsValue(String(props.modelValue))
+  if (modelValue.value === null || modelValue.value === undefined) return ''
+  if (!formatThousands) return String(modelValue.value)
+  const { formatted } = formatThousandsValue(String(modelValue.value))
   return formatted
 })
 
-const inputType = computed(() => (props.formatThousands ? 'text' : props.type))
+const inputType = computed(() => (formatThousands ? 'text' : type))
 </script>
 
 <template>

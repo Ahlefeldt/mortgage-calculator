@@ -1,8 +1,9 @@
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 import { mergeConfig } from 'vite'
 import { configDefaults, defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
-import path from 'path'
+
+const projectRoot = new URL('./', import.meta.url)
 
 export default mergeConfig(
   viteConfig,
@@ -11,11 +12,11 @@ export default mergeConfig(
       globals: true,
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*'],
-      root: fileURLToPath(new URL('./', import.meta.url)),
+      root: fileURLToPath(projectRoot),
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': fileURLToPath(new URL('./src', projectRoot)),
       },
     },
     root: '.',
