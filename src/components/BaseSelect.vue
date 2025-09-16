@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/20/solid'
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
